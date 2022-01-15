@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Layout, Menu, Breadcrumb, Table } from 'antd';
+import {Layout, Menu, Breadcrumb, Table, Spin, Empty} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
     FileOutlined,
     TeamOutlined,
     UserOutlined,
+    LoadingOutlined,
 } from '@ant-design/icons';
 import { getAllStudents } from "./client";
 
@@ -33,16 +34,19 @@ const columns = [
         key: 'gender'
     }
 ];
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 function App() {
     const [students, setStudents] = useState([]);
     const [collapsed, setCollapsed] = useState(false);
+    const [fetching, setFetching] = useState(true);
     const fetchStudents = () =>
         getAllStudents()
             .then(res => res.json())
             .then(data => {
                 console.log(data);
                 setStudents(data);
+                setFetching(false);
             })
     useEffect(() => {
         console.log("Component is mounted.")
@@ -50,12 +54,21 @@ function App() {
     }, []);
 
     const renderStudents = () => {
+        if (fetching) {
+            return <Spin indicator={antIcon} />;
+        }
         if (students.length <= 0) {
-            return "no data available";
+            return <Empty />;
         }
         return <Table
+            rowKey={(student) => student.id}
             dataSource={students}
-            columns={columns}/>;
+            columns={columns}
+            bordered
+            pagination={{ pageSize: 50 }}
+            scroll={{ y: 240 }}
+            title={() => 'Students'}
+        />;
     }
 
     return <Layout style={{ minHeight: '100vh' }}>
@@ -94,7 +107,7 @@ function App() {
                     {renderStudents(students)}
                 </div>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center' }}>by Stanislav</Footer>
         </Layout>
     </Layout>
 }
