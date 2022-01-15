@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Table } from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -11,7 +11,28 @@ import { getAllStudents } from "./client";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-
+const columns = [
+    {
+        title: 'Id',
+        dataIndex: 'id',
+        key: 'id',
+    },
+    {
+        title: 'Name',
+        dataIndex: 'name',
+        key: 'name',
+    },
+    {
+        title: 'Email',
+        dataIndex: 'email',
+        key: 'email',
+    },
+    {
+        title: 'Gender',
+        dataIndex: 'gender',
+        key: 'gender'
+    }
+];
 
 function App() {
     const [students, setStudents] = useState([]);
@@ -28,8 +49,13 @@ function App() {
         fetchStudents();
     }, []);
 
-    if (students.length <= 0) {
-        return "no data";
+    const renderStudents = () => {
+        if (students.length <= 0) {
+            return "no data available";
+        }
+        return <Table
+            dataSource={students}
+            columns={columns}/>;
     }
 
     return <Layout style={{ minHeight: '100vh' }}>
@@ -65,7 +91,7 @@ function App() {
                     <Breadcrumb.Item>Bill</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-                    Bill is a cat.
+                    {renderStudents(students)}
                 </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
