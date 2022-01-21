@@ -65,8 +65,8 @@ function App() {
             dataSource={students}
             columns={columns}
             bordered
-            pagination={{ pageSize: 50 }}
-            scroll={{ y: 240 }}
+            pagination={{ pageSize: 10 }}
+            scroll={{ y: 400 }}
             title={() => 'Students'}
         />;
     }
