@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import {Layout, Menu, Breadcrumb, Table, Spin, Empty} from 'antd';
+import {Layout, Menu, Breadcrumb, Table, Spin, Empty, Button} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
     FileOutlined,
     TeamOutlined,
     UserOutlined,
-    LoadingOutlined,
+    LoadingOutlined, PlusOutlined,
 } from '@ant-design/icons';
 import { getAllStudents } from "./client";
 
@@ -67,7 +67,9 @@ function App() {
             bordered
             pagination={{ pageSize: 10 }}
             scroll={{ y: 400 }}
-            title={() => 'Students'}
+            title={() => <Button type="primary" shape="round" icon={<PlusOutlined />} size="small">
+                Add New Student
+            </Button>}
         />;
     }
 
