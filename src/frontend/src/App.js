@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {Layout, Menu, Breadcrumb, Table, Spin, Empty, Button, Badge, Tag} from 'antd';
+import {Layout, Menu, Breadcrumb, Table, Spin, Empty, Button, Badge, Tag, Avatar} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -13,7 +13,26 @@ import { getAllStudents } from "./client";
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
+
+const TheAvatar = ({name}) => {
+    let trim = name.trim();
+    if (trim.length === 0) {
+        return <Avatar icon={<UserOutlined/>} />
+    }
+    const split = trim.split(' ');
+    if (split.length === 1) {
+        return <Avatar>{name.charAt(0)}</Avatar>
+    }
+    return <Avatar>{`${name.charAt(0)}${name.charAt(name.length - 1)}`}</Avatar>
+}
 const columns = [
+    {
+        title: '',
+        dataIndex: 'avatar',
+        key: 'avatar',
+        render: (text, student) =>
+            <TheAvatar name={student.name} />
+    },
     {
         title: 'Id',
         dataIndex: 'id',
@@ -86,7 +105,7 @@ function App() {
                     <Badge count={students.length} className="site-badge-count-4" />
                     </>
                 }
-            />;
+            />
         </>
     }
 
