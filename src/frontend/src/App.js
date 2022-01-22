@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {Layout, Menu, Breadcrumb, Table, Spin, Empty, Button} from 'antd';
+import {Layout, Menu, Breadcrumb, Table, Spin, Empty, Button, Badge, Tag} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -76,10 +76,16 @@ function App() {
                 bordered
                 pagination={{ pageSize: 10 }}
                 scroll={{ y: 400 }}
-                title={() => <Button onClick={() => setShowDrawer(!showDrawer)}
-                    type="primary" shape="round" icon={<PlusOutlined />} size="small">
-                    Add New Student
-                </Button>}
+                title={() =>
+                    <>
+                    <Button onClick={() => setShowDrawer(!showDrawer)}
+                        type="primary" shape="round" icon={<PlusOutlined />} size="small">
+                        Add New Student
+                    </Button>
+                        <Tag style={{ marginLeft: "5px"}}>Number of students</Tag>
+                    <Badge count={students.length} className="site-badge-count-4" />
+                    </>
+                }
             />;
         </>
     }
