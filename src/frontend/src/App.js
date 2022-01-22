@@ -67,6 +67,7 @@ function App() {
             <StudentDrawerForm
                 setShowDrawer={setShowDrawer}
                 showDrawer={showDrawer}
+                fetchStudents={fetchStudents}
             />
             <Table
                 rowKey={(student) => student.id}
