@@ -25,7 +25,6 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
                 )
                 fetchStudents();
             }).catch(err => {
-                console.log(err)
                 err.response.json().then(res => {
                     console.log(res);
                     errorNotification("There was an issue", `${res.message} [${res.status}] [${res.error}]`,
@@ -33,7 +32,7 @@ function StudentDrawerForm({showDrawer, setShowDrawer, fetchStudents}) {
                 });
             }).finally(() => {
                 setSubmitting(false);
-        })
+            })
     };
 
     const onFinishFailed = errorInfo => {
