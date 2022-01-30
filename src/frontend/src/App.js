@@ -1,5 +1,19 @@
 import {useState, useEffect} from "react";
-import {Layout, Menu, Breadcrumb, Table, Spin, Empty, Button, Badge, Tag, Avatar, Popconfirm, Radio} from 'antd';
+import {
+    Layout,
+    Menu,
+    Breadcrumb,
+    Table,
+    Spin,
+    Empty,
+    Button,
+    Badge,
+    Tag,
+    Avatar,
+    Popconfirm,
+    Radio,
+    Divider
+} from 'antd';
 import {
     DesktopOutlined,
     PieChartOutlined,
@@ -197,6 +211,7 @@ function App() {
                 </div>
             </Content>
             <Footer style={{textAlign: 'center'}}>by Stanislav</Footer>
+            <Divider><a target="_blank" href="https://github.com/cancion2able">Click here to see my profile</a></Divider>
         </Layout>
     </Layout>
 }
