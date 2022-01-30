@@ -211,7 +211,7 @@ function App() {
                 </div>
             </Content>
             <Footer style={{textAlign: 'center'}}>by Stanislav</Footer>
-            <Divider><a target="_blank" href="https://github.com/cancion2able">Click here to see my profile</a></Divider>
+            <Divider><a target="_blank" rel="noreferrer noopener" href="https://github.com/cancion2able">Click here to see my profile</a></Divider>
         </Layout>
     </Layout>
 }
