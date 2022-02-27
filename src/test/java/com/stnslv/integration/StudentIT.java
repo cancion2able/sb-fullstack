@@ -1,6 +1,7 @@
 package com.stnslv.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 import com.stnslv.student.Gender;
 import com.stnslv.student.Student;
 import com.stnslv.student.StudentRepository;
@@ -11,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -32,11 +33,15 @@ class StudentIT {
     private ObjectMapper objectMapper;
     @Autowired
     private StudentRepository studentRepository;
+    private final Faker faker = new Faker();
 
     @Test
     void canAddNewStudent() throws Exception {
-        Student student = new Student("Jamila", "jamila12345@gmail.com", Gender.FEMALE);
-
+        final String name = String.format("%s %s", faker.name().firstName(), faker.name().lastName());
+        Student student = new Student(
+                name,
+                String.format("%s@gmail.com", StringUtils.trimAllWhitespace(name.toLowerCase())),
+                Gender.FEMALE);
         mockMvc.perform(post("/api/v1/students")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(student)))
